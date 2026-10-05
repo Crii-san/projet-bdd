@@ -1,0 +1,26 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: bdd_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ecommerce
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init-sql:/docker-entrypoint-initdb.d
+
+  mongodb:
+    image: mongo:7-jammy
+    container_name: bdd_mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: mongopassword
+      MONGO_INITDB_DATABASE: ecommerce_reviews
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./init-nosql:/docker-entrypoint-initdb.d
